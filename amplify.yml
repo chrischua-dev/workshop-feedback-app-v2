@@ -1,12 +1,15 @@
 version: 1
-frontend:
+backend:
   phases:
-    preBuild:
+    build:
       commands:
         - nvm install 22
         - nvm use 22
         - node -v
         - npm ci
+        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID --outputs-out-dir . --outputs-format json
+frontend:
+  phases:
     build:
       commands:
         - npm run build
